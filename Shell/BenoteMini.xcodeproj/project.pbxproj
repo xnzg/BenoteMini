@@ -10,6 +10,7 @@
 		9A27732328EA88860037567A /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A27732228EA88860037567A /* App.swift */; };
 		9A27732528EA88860037567A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A27732428EA88860037567A /* ContentView.swift */; };
 		9A27732728EA88870037567A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9A27732628EA88870037567A /* Assets.xcassets */; };
+		9A4F04A328EB352C00C20FEE /* App in Frameworks */ = {isa = PBXBuildFile; productRef = 9A4F04A228EB352C00C20FEE /* App */; };
 		9AB1B15128EA946E00564B44 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = 9AB1B15028EA946E00564B44 /* ComposableArchitecture */; };
 /* End PBXBuildFile section */
 
@@ -26,6 +27,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9A4F04A328EB352C00C20FEE /* App in Frameworks */,
 				9AB1B15128EA946E00564B44 /* ComposableArchitecture in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -38,6 +40,7 @@
 			children = (
 				9A27732128EA88860037567A /* BenoteMini */,
 				9A27732028EA88860037567A /* Products */,
+				9A4F04A128EB352C00C20FEE /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -60,6 +63,13 @@
 			name = BenoteMini;
 			sourceTree = "<group>";
 		};
+		9A4F04A128EB352C00C20FEE /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -78,6 +88,7 @@
 			name = BenoteMini;
 			packageProductDependencies = (
 				9AB1B15028EA946E00564B44 /* ComposableArchitecture */,
+				9A4F04A228EB352C00C20FEE /* App */,
 			);
 			productName = BenoteMini;
 			productReference = 9A27731F28EA88860037567A /* BenoteMini.app */;
@@ -358,6 +369,10 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		9A4F04A228EB352C00C20FEE /* App */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = App;
+		};
 		9AB1B15028EA946E00564B44 /* ComposableArchitecture */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 9AB1B14F28EA946E00564B44 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */;

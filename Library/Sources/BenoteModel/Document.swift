@@ -40,9 +40,27 @@ public struct NodeTree: Equatable, Identifiable {
 public struct Document: Equatable {
     public private(set) var nodes: [UUID: NodeProps] = [:]
     public private(set) var tree: NodeTree = .root
+
+    public static var initialState: Self = {
+        var doc = Self()
+        doc.append(.init(text: "Hello, world!"), to: NodeTree.rootID)
+        return doc
+    }()
 }
 
 extension Document {
+    public internal(set) subscript(nodeID: UUID) -> NodeProps {
+        get {
+            nodes[nodeID]!
+        }
+        set {
+            let oldValue = nodes[nodeID]!
+            assert(oldValue.id == newValue.id)
+            assert(oldValue.parent == newValue.parent)
+            nodes[nodeID] = newValue
+        }
+    }
+
     func path(for nodeID: UUID) -> ArraySlice<Int> {
         guard nodeID != NodeTree.rootID else {
             return ArraySlice([])
@@ -77,7 +95,7 @@ extension Document {
         assert(nodes[child.id] == nil)
 
         var child = child
-        child.parent = nodes[siblingID]!.id
+        child.parent = nodes[siblingID]!.parent
         nodes[child.id] = child
 
         let siblingPath = path(for: siblingID)
@@ -104,7 +122,7 @@ extension Document {
         parentSubtree.children.remove(at: i)
         tree[parentPath] = parentSubtree
 
-        nodes[nodeID]!.parent = parentSubtree.id
+        nodes[nodeID]!.parent = parentSubtree.children[i - 1].id
     }
 
     public func canDecreaseLevel(nodeID: UUID) -> Bool {

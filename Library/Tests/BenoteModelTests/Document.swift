@@ -7,6 +7,10 @@ private extension Document {
             $0.value.text == text
         }?.key
     }
+
+    func checkAncestor(forNodeWihtID nodeID: UUID) {
+        XCTAssertEqual(tree[path(for: nodeID)].id, nodeID)
+    }
 }
 
 final class DocumentTests: XCTestCase {
@@ -57,6 +61,10 @@ final class DocumentTests: XCTestCase {
         let list = doc.visibleNodes()
         XCTAssertEqual(list.map(\.level), [0, 1, 2, 2, 1, 0, 0])
         XCTAssertEqual(list.map(\.props.text), ["1", "a", "x", "y", "b", "2", "3"])
+
+        for id in doc.nodes.keys {
+            doc.checkAncestor(forNodeWihtID: id)
+        }
     }
 
     func testAppendAfter() {
@@ -66,6 +74,7 @@ final class DocumentTests: XCTestCase {
 
         XCTAssertEqual(list.map(\.level), [0, 1, 2, 2, 2, 1, 0, 0])
         XCTAssertEqual(list.map(\.props.text), ["1", "a", "x", "y", "z", "b", "2", "3"])
+        doc.checkAncestor(forNodeWihtID: doc.id(of: "z")!)
     }
 
     func testIncreaseLevel() {
@@ -78,12 +87,18 @@ final class DocumentTests: XCTestCase {
         doc1.increaseLevel(nodeID: doc.id(of: "y")!)
         let xs1 = doc1.visibleNodes()
         XCTAssertEqual(xs1.map(\.level), [0, 1, 2, 3, 1, 0, 0])
+        doc1.checkAncestor(forNodeWihtID: doc.id(of: "y")!)
 
         var doc2 = doc
         doc2.append(.init(text: "x"), to: doc.id(of: "b")!)
         doc2.increaseLevel(nodeID: doc.id(of: "b")!)
         let xs2 = doc2.visibleNodes()
         XCTAssertEqual(xs2.map(\.level), [0, 1, 2, 2, 2, 3, 0, 0])
+        doc2.checkAncestor(forNodeWihtID: doc.id(of: "a")!)
+
+        var doc3 = doc
+        doc3.increaseLevel(nodeID: doc.id(of: "2")!)
+        doc3.checkAncestor(forNodeWihtID: doc.id(of: "2")!)
     }
 
     func testDecreaseLevel() {
@@ -93,11 +108,13 @@ final class DocumentTests: XCTestCase {
         XCTAssert(!doc.canDecreaseLevel(nodeID: doc.id(of: "3")!))
 
         doc.append(.init(text: "z"), after: doc.id(of: "y")!)
+        doc.checkAncestor(forNodeWihtID: doc.id(of: "z")!)
 
         var doc1 = doc
         doc1.decreaseLevel(nodeID: doc.id(of: "y")!)
         let xs1 = doc1.visibleNodes()
         XCTAssertEqual(xs1.map(\.level), [0, 1, 2, 1, 2, 1, 0, 0])
+        doc1.checkAncestor(forNodeWihtID: doc.id(of: "y")!)
     }
 
     func testCollapsing() {

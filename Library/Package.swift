@@ -12,13 +12,20 @@ let package = Package(
         .library(
             name: "App",
             targets: [
-                "BenoteModel"
+                "App",
+                "BenoteModel",
             ]),
     ],
     dependencies: [
         .package(url: "https://github.com/pointfreeco/swift-composable-architecture", branch: "protocol"),
     ],
     targets: [
+        .target(
+            name: "App",
+            dependencies: [
+                "BenoteModel",
+                .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
+            ]),
         .target(
             name: "BenoteModel",
             dependencies: [

@@ -62,7 +62,8 @@ struct NodeEditorTextView: UIViewRepresentable {
         textView.delegate = context.coordinator
 
         textView.isScrollEnabled = false
-        textView.font = .preferredFont(forTextStyle: .body)
+        textView.font = .systemFont(ofSize: 16)
+        textView.backgroundColor = .clear
 
         return textView
     }

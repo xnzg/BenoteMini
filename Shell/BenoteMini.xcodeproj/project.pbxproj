@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		9A27732328EA88860037567A /* BenoteMiniApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A27732228EA88860037567A /* BenoteMiniApp.swift */; };
+		9A27732328EA88860037567A /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A27732228EA88860037567A /* App.swift */; };
 		9A27732528EA88860037567A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A27732428EA88860037567A /* ContentView.swift */; };
 		9A27732728EA88870037567A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9A27732628EA88870037567A /* Assets.xcassets */; };
 		9AB1B15128EA946E00564B44 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = 9AB1B15028EA946E00564B44 /* ComposableArchitecture */; };
@@ -15,12 +15,10 @@
 
 /* Begin PBXFileReference section */
 		9A27731F28EA88860037567A /* BenoteMini.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BenoteMini.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		9A27732228EA88860037567A /* BenoteMiniApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BenoteMiniApp.swift; sourceTree = "<group>"; };
+		9A27732228EA88860037567A /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		9A27732428EA88860037567A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		9A27732628EA88870037567A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9A27733228EA92E20037567A /* BenoteMini.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BenoteMini.entitlements; sourceTree = "<group>"; };
-		9AB1B15228EAEA7700564B44 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		9AB1B15328EAEA7700564B44 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -38,8 +36,6 @@
 		9A27731628EA88860037567A = {
 			isa = PBXGroup;
 			children = (
-				9AB1B15328EAEA7700564B44 /* LICENSE */,
-				9AB1B15228EAEA7700564B44 /* README.md */,
 				9A27732128EA88860037567A /* BenoteMini */,
 				9A27732028EA88860037567A /* Products */,
 			);
@@ -57,11 +53,11 @@
 			isa = PBXGroup;
 			children = (
 				9A27733228EA92E20037567A /* BenoteMini.entitlements */,
-				9A27732228EA88860037567A /* BenoteMiniApp.swift */,
+				9A27732228EA88860037567A /* App.swift */,
 				9A27732428EA88860037567A /* ContentView.swift */,
 				9A27732628EA88870037567A /* Assets.xcassets */,
 			);
-			path = BenoteMini;
+			name = BenoteMini;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -140,7 +136,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9A27732528EA88860037567A /* ContentView.swift in Sources */,
-				9A27732328EA88860037567A /* BenoteMiniApp.swift in Sources */,
+				9A27732328EA88860037567A /* App.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -266,7 +262,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = BenoteMini/BenoteMini.entitlements;
+				CODE_SIGN_ENTITLEMENTS = BenoteMini.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "";
@@ -299,7 +295,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = BenoteMini/BenoteMini.entitlements;
+				CODE_SIGN_ENTITLEMENTS = BenoteMini.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "";

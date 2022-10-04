@@ -27,6 +27,8 @@ public struct DocumentEditor: ReducerProtocol {
     public enum Action: Equatable {
         case node(UUID, NodeEditor.Action)
         case setFocus(UUID?)
+        case favorite(UUID)
+        case unfavorite(UUID)
     }
 
     public init() {}
@@ -52,6 +54,10 @@ public struct DocumentEditor: ReducerProtocol {
             reduceDocument(into: &state.document, nodeID: nodeID, action: action)
         case .setFocus(let focus):
             state.focus = focus
+        case .favorite(let nodeID):
+            state.document.favorite(nodeID)
+        case .unfavorite(let nodeID):
+            state.document.unfavorite(nodeID)
         }
         return .none
     }

@@ -7,6 +7,11 @@ public struct AppView: View {
     public init() {}
 
     public var body: some View {
-        DocumentEditorView(store: store.scope(state: \.editor, action: AppFeature.Action.editor))
+        let editorStore = store.scope(state: \.editor, action: AppFeature.Action.editor)
+        NavigationView {
+            FavoritesView(store: editorStore)
+            DocumentEditorView(store: editorStore)
+        }
+
     }
 }

@@ -5,7 +5,7 @@ import UIKit
 
 final class NodeEditorUITextView: UITextView {
     var viewStore: ViewStoreOf<NodeEditor>!
-    var documentStore: StoreOf<DocumentEditor>!
+    var editorStore: StoreOf<DocumentEditor>!
 
     @objc
     func increaseLevel(_ sender: Any) {
@@ -19,10 +19,10 @@ final class NodeEditorUITextView: UITextView {
 
     override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
         if action == #selector(increaseLevel(_:)) {
-            return ViewStore(documentStore).state.canIncreaseLevel(nodeID: viewStore.id)
+            return ViewStore(editorStore).document.canIncreaseLevel(nodeID: viewStore.id)
         }
         if action == #selector(decreaseLevel(_:)) {
-            return ViewStore(documentStore).state.canDecreaseLevel(nodeID: viewStore.id)
+            return ViewStore(editorStore).document.canDecreaseLevel(nodeID: viewStore.id)
         }
         return super.canPerformAction(action, withSender: sender)
     }
@@ -48,7 +48,7 @@ final class NodeEditorUITextView: UITextView {
 
 struct NodeEditorTextView: UIViewRepresentable {
     @ObservedObject var viewStore: ViewStoreOf<NodeEditor>
-    var documentStore: StoreOf<DocumentEditor>
+    var editorStore: StoreOf<DocumentEditor>
 
     func makeCoordinator() -> Coordinator {
         .init(viewStore: viewStore)
@@ -58,7 +58,7 @@ struct NodeEditorTextView: UIViewRepresentable {
         let textView = NodeEditorUITextView()
 
         textView.viewStore = viewStore
-        textView.documentStore = documentStore
+        textView.editorStore = editorStore
         textView.delegate = context.coordinator
 
         textView.isScrollEnabled = false

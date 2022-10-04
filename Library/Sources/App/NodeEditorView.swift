@@ -4,7 +4,7 @@ import SwiftUI
 
 struct NodeEditorView: View {
     var store: StoreOf<NodeEditor>
-    var documentStore: StoreOf<DocumentEditor>
+    var editorStore: StoreOf<DocumentEditor>
 
     var body: some View {
         WithViewStore(store) { viewStore in
@@ -21,13 +21,13 @@ struct NodeEditorView: View {
                 .opacity(viewStore.collapseStatus == .leaf ? 0 : 1)
 
                 Button {
-
+                    ViewStore(editorStore).send(.setFocus(viewStore.id), animation: .default)
                 } label: {
                     Image(systemName: "circle.fill")
                         .frame(width: 30)
                 }
                 .buttonStyle(EmptyButtonStyle())
-                NodeEditorTextView(viewStore: viewStore, documentStore: documentStore)
+                NodeEditorTextView(viewStore: viewStore, editorStore: editorStore)
             }
             .padding(.leading, CGFloat(viewStore.level * 30))
         }

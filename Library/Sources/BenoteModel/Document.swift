@@ -47,6 +47,7 @@ public struct NodeTree: Equatable, Identifiable {
 public struct Document: Equatable {
     public private(set) var nodes: [UUID: NodeProps] = [:]
     public private(set) var tree: NodeTree = .root
+    public private(set) var favorites: [UUID] = []
 
     public static var initialState: Self = {
         var doc = Self()
@@ -166,6 +167,15 @@ extension Document {
 
     public mutating func expand(nodeWithID nodeID: UUID) {
         nodes[nodeID]?.isCollapsed = false
+    }
+
+    public mutating func favorite(_ nodeID: UUID) {
+        guard nodes[nodeID] != nil else { return }
+        favorites.append(nodeID)
+    }
+
+    public mutating func unfavorite(_ nodeID: UUID) {
+        favorites.removeAll { $0 == nodeID }
     }
 }
 

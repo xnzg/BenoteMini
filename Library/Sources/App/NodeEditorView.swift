@@ -31,6 +31,16 @@ struct NodeEditorView: View {
             }
             .padding(.leading, CGFloat(viewStore.level * 30))
         }
+        .contextMenu {
+            let viewStore = ViewStore(editorStore)
+            let id = ViewStore(store).id
+            let isFavorite = viewStore.document.favorites.contains(id)
+            Button {
+                viewStore.send(isFavorite ? .unfavorite(id) : .favorite(id), animation: .default)
+            } label: {
+                Text(isFavorite ? "Unfavorite" : "Favorite")
+            }
+        }
     }
 }
 

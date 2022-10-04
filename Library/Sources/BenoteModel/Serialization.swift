@@ -3,6 +3,7 @@ import Foundation
 struct SerializableDocument: Codable {
     private(set) var version: UInt64 = 1
     let nodes: [String: SerializableNode]
+    let favorites: [UUID]?
 }
 
 struct SerializableNode: Equatable, Codable {
@@ -43,7 +44,8 @@ extension SerializableDocument {
 
         visitChildren(tree: document.tree)
 
-        return .init(nodes: nodes)
+        let favorites: [UUID]? = document.favorites.isEmpty ? nil : document.favorites
+        return .init(nodes: nodes, favorites: favorites)
     }
 
     func document() -> Document {
@@ -74,6 +76,10 @@ extension SerializableDocument {
         for nodeID in nodes.keys {
             guard let nodeID = UUID(uuidString: nodeID) else { continue }
             _ = visit(nodeID)
+        }
+
+        for nodeID in favorites ?? [] {
+            document.favorite(nodeID)
         }
 
         return document

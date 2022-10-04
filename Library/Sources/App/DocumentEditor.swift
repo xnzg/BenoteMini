@@ -1,3 +1,4 @@
+import BenoteModel
 import ComposableArchitecture
 import Foundation
 

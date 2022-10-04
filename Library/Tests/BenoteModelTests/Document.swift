@@ -129,4 +129,57 @@ final class DocumentTests: XCTestCase {
         doc.collapse(nodeWithID: doc.id(of: "1")!)
         XCTAssertEqual(doc.visibleNodes().map(\.props.text), ["1", "2", "3"])
     }
+
+    func testSerializationRoundTrip() throws {
+        let expected = parse(Self.input1)
+        let actual = try Document(data: expected.encode())
+        XCTAssertEqual(expected, actual)
+    }
+
+    func testSerializationSorted() throws {
+        let sample: String = """
+            {
+              "nodes" : {
+                "1AED55BD-E106-47E6-BC15-A8DCDB493E9C" : {
+                  "isCollapsed" : false,
+                  "previous" : "701A772D-F5FE-419E-B4EE-023BD3D195AB",
+                  "text" : "b"
+                },
+                "8FBEFCB8-32BD-4A96-A4B7-0CFFDAF1C543" : {
+                  "isCollapsed" : false,
+                  "text" : "1"
+                },
+                "31AD83C9-FEA8-45CE-B808-71D91D9848B1" : {
+                  "isCollapsed" : false,
+                  "previous" : "51E5C6EB-86C4-43DB-9F79-E4129059D02F",
+                  "text" : "3"
+                },
+                "51E5C6EB-86C4-43DB-9F79-E4129059D02F" : {
+                  "isCollapsed" : false,
+                  "previous" : "8FBEFCB8-32BD-4A96-A4B7-0CFFDAF1C543",
+                  "text" : "2"
+                },
+                "52E61BA8-7475-4F24-A012-28959A728FA0" : {
+                  "isCollapsed" : false,
+                  "parent" : "701A772D-F5FE-419E-B4EE-023BD3D195AB",
+                  "text" : "x"
+                },
+                "605E2D92-A33A-4F16-8BF1-C7021913E920" : {
+                  "isCollapsed" : false,
+                  "previous" : "52E61BA8-7475-4F24-A012-28959A728FA0",
+                  "text" : "y"
+                },
+                "701A772D-F5FE-419E-B4EE-023BD3D195AB" : {
+                  "isCollapsed" : false,
+                  "parent" : "8FBEFCB8-32BD-4A96-A4B7-0CFFDAF1C543",
+                  "text" : "a"
+                }
+              },
+              "version" : 1
+            }
+            """
+        let data = sample.data(using: .utf8)!
+
+        XCTAssertEqual(data, try Document(data: data).encode())
+    }
 }

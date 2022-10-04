@@ -1,11 +1,18 @@
-import ComposableArchitecture
+import IdentifiedCollections
 import Foundation
 
 public struct NodeProps: Equatable, Identifiable {
-    public var id: UUID = UUID()
-    public var parent: UUID = NodeTree.rootID
+    public var id: UUID
+    public var parent: UUID
     public var text: String
-    public var isCollapsed: Bool = false
+    public var isCollapsed: Bool
+
+    public init(id: UUID = UUID(), parent: UUID = NodeTree.rootID, text: String, isCollapsed: Bool = false) {
+        self.id = id
+        self.parent = parent
+        self.text = text
+        self.isCollapsed = isCollapsed
+    }
 }
 
 public struct NodeTree: Equatable, Identifiable {
@@ -49,7 +56,7 @@ public struct Document: Equatable {
 }
 
 extension Document {
-    public internal(set) subscript(nodeID: UUID) -> NodeProps {
+    public subscript(nodeID: UUID) -> NodeProps {
         get {
             nodes[nodeID]!
         }

@@ -15,13 +15,15 @@ public struct DocumentEditorView: View {
         } action: { (nodeID, action) in
             .node(nodeID, action)
         }
-        // We have to use VStack here since LazyVStack will give odd results
-        // when the list updates. This is not a scalable solution.
-        VStack {
-            ForEachStore(childStores) { store in
-                NodeEditorView(store: store, documentStore: self.store)
+        ScrollView(.vertical) {
+            // We have to use VStack here since LazyVStack will give odd results
+            // when the list updates. This is not a scalable solution.
+            VStack {
+                ForEachStore(childStores) { store in
+                    NodeEditorView(store: store, documentStore: self.store)
+                }
             }
+            .padding()
         }
-        .padding()
     }
 }

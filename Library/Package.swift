@@ -18,6 +18,8 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/pointfreeco/swift-composable-architecture", branch: "protocol"),
+        .package(url: "https://github.com/pointfreeco/swift-identified-collections", .upToNextMinor(from: "0.4.0")),
+
     ],
     targets: [
         .target(
@@ -29,7 +31,7 @@ let package = Package(
         .target(
             name: "BenoteModel",
             dependencies: [
-                .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
+                .product(name: "IdentifiedCollections", package: "swift-identified-collections"),
             ]),
         .testTarget(
             name: "BenoteModelTests",

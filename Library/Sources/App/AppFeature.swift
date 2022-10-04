@@ -5,11 +5,11 @@ import OSLog
 
 public struct AppFeature: ReducerProtocol {
     public struct State: Equatable {
-        public var document: Document
+        public var editor: DocumentEditor.State
     }
 
     public enum Action: Equatable {
-        case document(DocumentEditor.Action)
+        case editor(DocumentEditor.Action)
         case save(Document)
         case backup(Document)
     }
@@ -47,10 +47,10 @@ public struct AppFeature: ReducerProtocol {
             reduceSelf(into: &state, action: action)
 
         }
-        Scope(state: \.document, action: CasePath(Action.document)) {
+        Scope(state: \.editor, action: CasePath(Action.editor)) {
             DocumentEditor()
         }
-        .onChange(of: \.document) { _, newValue in
+        .onChange(of: \.editor.document) { _, newValue in
             Effect.merge(
                 Effect(value: Action.save(newValue))
                     .throttle(id: "save", for: 1, scheduler: RunLoop.main, latest: true),
@@ -71,7 +71,7 @@ extension AppFeature.State {
             Logger.storage.error("An error occurred when loading data, creating a new one instead. Error: \(error.localizedDescription)")
             document = Document.initialState
         }
-        return .init(document: document)
+        return .init(editor: .init(document: document))
     }()
 }
 

@@ -19,19 +19,19 @@ public struct NodeEditor: ReducerProtocol {
 }
 
 public struct DocumentEditor: ReducerProtocol {
-    public typealias State = Document
+    public struct State: Equatable {
+        public var document: Document
+        public var focus: UUID?
+    }
 
     public enum Action: Equatable {
         case node(UUID, NodeEditor.Action)
+        case setFocus(UUID?)
     }
 
     public init() {}
 
-    public func reduce(into state: inout State, action: Action) -> Effect<Action, Never> {
-        guard case let .node(nodeID, action) = action,
-              state.nodes[nodeID] != nil
-        else { return Effect.none }
-
+    private func reduceDocument(into state: inout Document, nodeID: UUID, action: NodeEditor.Action) {
         switch action {
         case .setText(let newValue):
             state[nodeID].text = newValue
@@ -43,6 +43,15 @@ public struct DocumentEditor: ReducerProtocol {
             state.increaseLevel(nodeID: nodeID)
         case .decreaseLevel:
             state.decreaseLevel(nodeID: nodeID)
+        }
+    }
+
+    public func reduce(into state: inout State, action: Action) -> Effect<Action, Never> {
+        switch action {
+        case .node(let nodeID, let action):
+            reduceDocument(into: &state.document, nodeID: nodeID, action: action)
+        case .setFocus(let focus):
+            state.focus = focus
         }
         return .none
     }

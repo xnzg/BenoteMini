@@ -184,7 +184,7 @@ public struct NodeViewState: Identifiable, Equatable {
 }
 
 extension Document {
-    public func visibleNodes() -> IdentifiedArrayOf<NodeViewState> {
+    public func visibleNodes(focus: UUID? = nil) -> IdentifiedArrayOf<NodeViewState> {
         var list: IdentifiedArrayOf<NodeViewState> = []
 
         func visit(tree: NodeTree, level: Int) {
@@ -203,7 +203,11 @@ extension Document {
             }
         }
 
-        for child in tree.children {
+        var target = tree
+        if let focus {
+            target = tree[path(for: focus)]
+        }
+        for child in target.children {
             visit(tree: child, level: 0)
         }
         return list

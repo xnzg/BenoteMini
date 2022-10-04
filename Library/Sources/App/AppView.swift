@@ -7,6 +7,6 @@ public struct AppView: View {
     public init() {}
 
     public var body: some View {
-        DocumentEditorView(store: store.scope(state: \.document, action: AppFeature.Action.document))
+        DocumentEditorView(store: store.scope(state: \.editor, action: AppFeature.Action.editor))
     }
 }

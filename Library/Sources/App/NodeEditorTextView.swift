@@ -17,6 +17,11 @@ final class NodeEditorUITextView: UITextView {
         viewStore.send(.decreaseLevel)
     }
 
+    @objc
+    func deleteNode(_ sender: Any) {
+        viewStore.send(.delete)
+    }
+
     override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
         if action == #selector(increaseLevel(_:)) {
             return ViewStore(editorStore).document.canIncreaseLevel(nodeID: viewStore.id)
@@ -42,6 +47,13 @@ final class NodeEditorUITextView: UITextView {
             action: #selector(decreaseLevel(_:)))
         tab.wantsPriorityOverSystemBehavior = true
         list.append(shiftTab)
+
+        let delete = UIKeyCommand(
+            input: UIKeyCommand.inputDelete,
+            modifierFlags: [.shift],
+            action: #selector(deleteNode(_:)))
+        list.append(delete)
+
         return list
     }
 }

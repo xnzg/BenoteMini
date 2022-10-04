@@ -177,6 +177,26 @@ extension Document {
     public mutating func unfavorite(_ nodeID: UUID) {
         favorites.removeAll { $0 == nodeID }
     }
+
+    public mutating func delete(nodeID: UUID) {
+        var toRemove: Set<UUID> = []
+        let path = path(for: nodeID)
+        func visit(_ node: NodeTree) {
+            toRemove.insert(node.id)
+            for child in node.children {
+                visit(child)
+            }
+        }
+        visit(tree[path])
+
+        for id in toRemove {
+            nodes.removeValue(forKey: id)
+        }
+        favorites.removeAll { toRemove.contains($0) }
+
+        let i = path.last!
+        tree[path.dropLast()].children.remove(at: i)
+    }
 }
 
 public struct NodeViewState: Identifiable, Equatable {

@@ -130,6 +130,17 @@ final class DocumentTests: XCTestCase {
         XCTAssertEqual(doc.visibleNodes().map(\.props.text), ["1", "2", "3"])
     }
 
+    func testDelete() {
+        var doc = parse(Self.input1)
+
+        doc.favorite(doc.id(of: "a")!)
+        XCTAssert(!doc.favorites.isEmpty)
+
+        doc.delete(nodeID: doc.id(of: "1")!)
+        XCTAssertEqual(doc.visibleNodes().map(\.props.text), ["2", "3"])
+        XCTAssert(doc.favorites.isEmpty)
+    }
+
     func testSerializationRoundTrip() throws {
         let expected = parse(Self.input1)
         let actual = try Document(data: expected.encode())

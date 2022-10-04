@@ -11,6 +11,7 @@ public struct NodeEditor: ReducerProtocol {
         case addSibling
         case increaseLevel
         case decreaseLevel
+        case delete
     }
 
     public func reduce(into state: inout State, action: Action) -> Effect<Action, Never> {
@@ -45,6 +46,8 @@ public struct DocumentEditor: ReducerProtocol {
             state.increaseLevel(nodeID: nodeID)
         case .decreaseLevel:
             state.decreaseLevel(nodeID: nodeID)
+        case .delete:
+            state.delete(nodeID: nodeID)
         }
     }
 
